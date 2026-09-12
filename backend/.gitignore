@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+
+# Real credentials must never be committed.
+.env
+
+# Generated at setup time by scripts/prepare_data.py and the seed scripts.
+data/projects.json
+data/sns.sqlite3
+data/sns.sqlite3-shm
+data/sns.sqlite3-wal

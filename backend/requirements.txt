@@ -1,0 +1,9 @@
+# Smart Nigrani System API — deliberately small. Every extra dependency is one more
+# thing that can fail to install the night before a demo.
+fastapi==0.115.6
+uvicorn[standard]==0.34.0
+pydantic==2.10.5
+python-dotenv==1.0.1
+
+# Only needed if you set DATA_BACKEND=supabase. The API runs fine without it.
+httpx==0.28.1
