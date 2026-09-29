@@ -39,3 +39,4 @@ coverage/
 .vscode/
 .idea/
 backend/.env
+backend/.env
