@@ -1,0 +1,42 @@
+# Render blueprint for the Smart Nigrani System API.
+#
+# Two ways to use this:
+#
+#   1. If the BACKEND FOLDER is the whole repository, leave this file where it
+#      is and point Render at the repository. It will read this and set itself
+#      up.
+#
+#   2. If backend/ and frontend/ sit side by side in one repository, move this
+#      file to the top of the repository and add "rootDir: backend" under the
+#      service, so Render knows which half to build.
+#
+# You can also skip this file entirely and type the same three things into the
+# Render dashboard by hand. That is written out in HANDOVER.md.
+
+services:
+  - type: web
+    name: smart-nigrani-api
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    # Render calls this to decide the server came up cleanly.
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.6"
+
+      # Signs the sign-in tokens. Render makes a random one, which is what you
+      # want: the default in the code is a known string and must never be used
+      # on a public server.
+      - key: SECRET_KEY
+        generateValue: true
+
+      # The address of your frontend, so the browser is allowed to read replies
+      # from here. Fill it in after Vercel gives you a web address, for example
+      #   https://smart-nigrani.vercel.app
+      # Addresses ending in vercel.app, netlify.app, onrender.com and github.io
+      # are already allowed by the pattern built into the code, so on a normal
+      # Vercel deploy you can leave this alone.
+      - key: CORS_ORIGINS
+        sync: false

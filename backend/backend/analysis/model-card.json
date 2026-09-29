@@ -1,0 +1,15 @@
+{
+  "model": "Isolation Forest",
+  "version": "iforest-1.0",
+  "seed": 42,
+  "trainingRecords": 2437,
+  "features": [
+    "log_sanction_amount",
+    "payment_to_sanction_ratio",
+    "log_payment_count",
+    "sanction_interval_days",
+    "sanction_age_days"
+  ],
+  "scope": "Exploratory ranking on this snapshot; not a prediction of fraud or future delay. Not included in rule priority.",
+  "evaluation": "No reviewed labels. Generalisation and precision are not yet established."
+}

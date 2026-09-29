@@ -1,0 +1,21 @@
+maharashtra-road-1400.jpg and maharashtra-road-700.jpg
+------------------------------------------------------
+A rural road through farmland in Maharashtra, during the monsoon, on the
+Bombay to Matheran route. This is the kind of work MPLADS money pays for and
+the kind of work this system monitors, in the same state as the data.
+
+Photographer : McKay Savage
+Source       : Wikimedia Commons
+Page         : https://commons.wikimedia.org/wiki/File:1_India_-_Matheran_-_Bombay_Rural_Road_Monsoons_Mahrashtra.jpg
+Licence      : Creative Commons Attribution 2.0 Generic (CC BY 2.0)
+               https://creativecommons.org/licenses/by/2.0/
+
+CC BY means the photo can be used for anything, including a competition entry,
+as long as the photographer is credited and any changes are stated. Both are
+done: the credit appears under the picture on the website itself, and the
+changes are listed below.
+
+Changes made : cropped from the top to remove flat overcast sky, then a small
+               increase in contrast, colour and brightness to correct for the
+               dull monsoon light. Resized from 3264 x 2448 to the two widths
+               above. Nothing in the picture was added, removed or moved.
