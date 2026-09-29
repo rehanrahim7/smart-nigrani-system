@@ -38,3 +38,4 @@ coverage/
 .AppleDouble
 .vscode/
 .idea/
+backend/.env
