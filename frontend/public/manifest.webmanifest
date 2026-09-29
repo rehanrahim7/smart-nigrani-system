@@ -1,0 +1,14 @@
+{
+  "name": "Smart Nigrani System",
+  "short_name": "Nigrani",
+  "description": "Review support for MPLADS works: explainable checks, field evidence and oversight.",
+  "start_url": "/#/",
+  "display": "standalone",
+  "background_color": "#f7f5ee",
+  "theme_color": "#bf6848",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
