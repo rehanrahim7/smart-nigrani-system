@@ -9,9 +9,6 @@
 #   2. If backend/ and frontend/ sit side by side in one repository, move this
 #      file to the top of the repository and add "rootDir: backend" under the
 #      service, so Render knows which half to build.
-#
-# You can also skip this file entirely and type the same three things into the
-# Render dashboard by hand. That is written out in HANDOVER.md.
 
 services:
   - type: web
