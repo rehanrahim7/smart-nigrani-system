@@ -1,155 +1,518 @@
+<div align="center">
+
+<img src="frontend/public/logo.svg" alt="Smart Nigrani System logo" width="84" />
+
 # Smart Nigrani System
 
-**SIH26102 · Review support for MPLADS works in Maharashtra.**
+**Explainable review support for MPLADS works: find the works that need a closer look, show why, and follow them on the ground.**
 
-Smart Nigrani System reads the five published MPLADS reports, joins them into one record per work (4,798 works, snapshot 9 September 2026), and helps people decide which works to look at first. It explains every flag in plain words. The people delivering the works record what they did, and upload site photographs, against the same list.
+[![Live Demo](https://img.shields.io/badge/Live_Demo-smart--nigrani--system.vercel.app-bf6848?style=for-the-badge)](https://smart-nigrani-system.vercel.app/)
+[![Demo Video](https://img.shields.io/badge/Demo_Video-YouTube-red?style=for-the-badge&logo=youtube)](https://www.youtube.com/watch?v=vg-pKbTyaAs)
 
-It is a review-support tool. A flag is a reason for a person to look. It is never a finding of fraud.
+![SIH 2026](https://img.shields.io/badge/SIH-2026-orange)
+![Problem Statement](https://img.shields.io/badge/Problem_Statement-SIH26102-blue)
+![Theme](https://img.shields.io/badge/Theme-Smart_Automation-green)
+![Category](https://img.shields.io/badge/Category-Software-lightgrey)
 
+![React](https://img.shields.io/badge/React_19-20232A?logo=react&logoColor=61DAFB)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite_8-646CFF?logo=vite&logoColor=white)
+![Leaflet](https://img.shields.io/badge/Leaflet-199900?logo=leaflet&logoColor=white)
+![FastAPI](https://img.shields.io/badge/FastAPI-009688?logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python_3.12-3776AB?logo=python&logoColor=white)
+![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-Isolation_Forest-F7931E?logo=scikitlearn&logoColor=white)
+
+[Live Demo](https://smart-nigrani-system.vercel.app/) · [Repository](https://github.com/rehanrahim7/smart-nigrani-system) · [Demo Video](#-demo-video) · [How it works](#-how-it-works) · [Run locally](#-run-it-locally)
+
+</div>
+
+---
+
+## 📌 At a glance
+
+| | |
+|---|---|
+| **Problem Statement ID** | SIH26102 |
+| **Problem Statement** | Development of an AI-powered system to detect anomalies, fraud, and inefficiencies in MPLAD Scheme implementation |
+| **Theme** | Smart Automation |
+| **Category** | Software |
+| **Team** | SNS (Team ID 159098) |
+| **Data** | Published MPLADS reports for **Maharashtra**, snapshot **9 September 2026** |
+| **Scale** | **4,798 works** (2,437 sanctioned + 2,361 recommendations without a work ID), **47 MPs**, **39 districts** |
+
+> [!IMPORTANT]
+> Smart Nigrani is a **review-support tool**. A flag is a reason for a person to look, never a finding of fraud. The data has no confirmed fraud cases, so no accuracy figure exists and none is claimed.
+
+---
+
+## 🧭 The problem
+
+Under the **Members of Parliament Local Area Development Scheme (MPLADS)**, each MP recommends local works (roads, community halls, street lights, water, schools) that district authorities sanction and pay for. The records are public, but they are spread across **five separate reports**: works recommended, works sanctioned, works completed, expenditure, and allocated limits.
+
+**Why it matters**
+
+- Thousands of works per state make manual review slow; reviewers need a way to decide **where to look first**.
+- Warning signs (a cost far above similar works, a near-duplicate description, long delays, money paid ahead of progress) only show up when the reports are **joined and compared**.
+- Once a work is sanctioned, there is little structured way to record **what was actually built, bought and photographed** on site.
+
+## 💡 Our solution
+
+Smart Nigrani joins the five reports into **one record per work**, runs **explainable checks** and an **unsupervised anomaly model** on every sanctioned work, and ranks them into a **review queue**. Every flag comes with a plain-language reason. Around that queue it adds role-based dashboards so the people delivering a work (contractor, field officer, implementing agency) can log expenses and upload site photographs, and the MP can act on them.
+
+---
+
+## ✨ Key features
+
+<table>
+<tr>
+<td width="50%" valign="top">
+
+### 🎯 Review priority (0–100)
+Four checks per sanctioned work: **cost vs. semantically similar works**, **possible repeat of another work**, **time taken**, **money paid vs. progress**. Weighted into one score and labelled **Critical / High / Medium / Routine**.
+
+</td>
+<td width="50%" valign="top">
+
+### 🌲 Isolation Forest anomaly model
+An unsupervised model trained on 2,437 sanctioned works. Shows how statistically unusual a work is as a **percentile**, kept separate from the rule-based score as a second opinion.
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### 📋 Seven record checks
+Rules run on every work, including imported datasets: peer cost outlier, similar description, slow sanction, long-running without completion, sanction above recommendation, payments above sanction, dates out of order.
+
+</td>
+<td valign="top">
+
+### 🔍 Per-work investigation view
+Tabs for **Why flagged**, **Peer comparison**, **Timeline**, **Similar works**, **Model opinion**, **Source records**, plus **Export case file** (Markdown).
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### 🧾 Delivery & field evidence
+Contractors log itemised expenses; the server flags over-budget claims, repeated invoices, unusual rates and materials billed at Planning stage. Field officers upload site photos with optional GPS; exact photo re-use is detected.
+
+</td>
+<td valign="top">
+
+### 🗺️ Public transparency pages
+Animated landing page, MP-to-work network, map of every work, searchable public register, and a "How it works" explainer. MPs appear only as aliases on public pages.
+
+</td>
+</tr>
+<tr>
+<td valign="top">
+
+### 🔬 Research workspace
+Analysts filter and sort all works by any of the three views, record private review decisions, and **import newer report exports** as separate datasets (never overwriting the original).
+
+</td>
+<td valign="top">
+
+### 🤖 Optional Gemini photo notes
+With consent, a field photo can be sent to **Google Gemini** for a description against the work's scope. Server-side key, daily per-account limit; the output is a note for a human reviewer.
+
+</td>
+</tr>
+</table>
+
+---
+
+## ⚙️ How it works
+
+```mermaid
+flowchart LR
+    subgraph Inputs["Published MPLADS reports (Maharashtra)"]
+        R1[Works Recommended]
+        R2[Works Sanctioned]
+        R3[Works Completed]
+        R4[Expenditure]
+        R5[Allocated Limits]
+    end
+
+    Inputs --> J["Join into one record per work<br/>app/pipeline.py"]
+
+    J --> RC["7 record checks<br/>(rules, every work)"]
+    J --> F["5 model features"]
+    F --> IF["Isolation Forest<br/>app/anomaly.py + data/model.json"]
+    D["Offline detector output<br/>data/source/*.csv"] --> FC["4 checks + review priority<br/>app/enrich.py"]
+    J --> FC
+
+    RC --> P[("data/projects.json")]
+    IF --> P
+    FC --> P
+
+    P --> API["FastAPI<br/>role-scoped API"]
+    API --> UI["React dashboards"]
 ```
-SmartNigraniSystem/
-  backend/    FastAPI + SQLite: the data, the checks, the model, sign-in, every workflow
-  frontend/   React + Vite website
-  INTEGRATION.md   what was merged from the old and new sites, and why
+
+Each sanctioned work gets **three separate views that are never added together**:
+
+| View | What it measures | Implemented in |
+|---|---|---|
+| **Review priority** (0–100) | Four checks combined as `0.30 × cost + 0.25 × duplicate + 0.25 × delay + 0.20 × payment`, plus **5 points per active check** (max 3). Labels: **≥ 75 Critical**, **≥ 55 High**, **≥ 35 Medium**, else **Routine**. Works the checks never ran on are labelled **Not checked**, not Routine. | `backend/app/enrich.py`, using detector scores in `backend/data/source/` |
+| **Record checks** (7 rules) | Transparent rules over the joined reports (table below) | `backend/app/pipeline.py` |
+| **Model percentile** | How unusual a work looks compared with the 2,437 works the Isolation Forest was trained on | `backend/app/anomaly.py`, `backend/data/model.json` |
+
+---
+
+## 🧠 AI/ML and anomaly detection
+
+### 1. The four checks (review priority)
+
+| Check | Signal | Counts as "active" when |
+|---|---|---|
+| Cost looks unusual | Sanctioned amount vs. works with **semantically similar descriptions** | score ≥ 50 |
+| May repeat another work | Text overlap with another work (same agency / constituency / year taken into account) | score ≥ 75 |
+| Taking a long time | Delay since sanction | score ≥ 60 |
+| Money ahead of progress | Payments vs. recorded progress | score ≥ 50 |
+
+The per-work scores for these checks come from the team's **offline detector pipeline** (which uses sentence-transformer text similarity) and are shipped as CSVs in `backend/data/source/`. The backend reads those CSVs and combines them into the review priority. The offline pipeline itself is not part of this repository.
+
+**Current snapshot:** 4 Critical · 74 High · 186 Medium · 2,166 Routine · 2,368 Not checked.
+
+### 2. Isolation Forest (unsupervised anomaly model)
+
+| Item | Detail |
+|---|---|
+| Algorithm | scikit-learn `IsolationForest`, 160 trees, seed 42 |
+| Training set | 2,437 sanctioned works; **no fraud labels** (unsupervised) |
+| Features | `log(1 + sanctioned amount)`, `paid / sanctioned`, `log(1 + payment count)`, `days recommendation → sanction`, `days since sanction` |
+| Preprocessing | Median imputation → RobustScaler (stored in the model file) |
+| Serving | The trained forest is exported to `data/model.json` and scored in **plain Python** (`app/anomaly.py`), so the API needs no scikit-learn at runtime |
+| Output | Anomaly score and **percentile** vs. the training works, shown as "Model opinion" |
+| Parity | `scripts/verify_data.py` checks that the served score matches scikit-learn's training output for **all 2,437 works** |
+
+The model is deliberately **not part of the review priority**. It is a second opinion from a different method, and the model card (`backend/analysis/model-card.json`) states its scope: *"Exploratory ranking on this snapshot; not a prediction of fraud or future delay."*
+
+### 3. Record checks (rules)
+
+| Rule | Condition |
+|---|---|
+| Peer cost outlier | Amount > Q3 + 3×IQR **and** > 2.5× the median of ≥ 8 peers (same authority, category, year) |
+| Similar description | ≥ 85% word overlap with another work in the same constituency and category |
+| Slow sanction | More than 45 days from recommendation to sanction |
+| Long-running | Over 365 days since sanction with no completion record |
+| Sanction above recommendation | Sanctioned more than 10% above the recommended amount |
+| Payments above sanction | Successful payments exceed the sanctioned amount |
+| Date sequence | A milestone recorded before the one that should precede it |
+
+### 4. Delivery checks (on submissions)
+
+When a contractor logs an expense, `backend/app/delivery.py` adds review notes (it never blocks the claim): total above the approved amount, repeated invoice and material, materials billed while the work is at *Planning*, and a rate more than **1.3×** earlier claims for the same material and unit (needs at least 3 earlier claims). Photos are checked as real JPEGs and hashed (SHA-256) so the **exact same photo re-used** is detected.
+
+---
+
+## 👥 User roles and dashboards
+
+| Role | Dashboard | What they can do |
+|---|---|---|
+| 🌐 **Public** (no sign-in) | Landing, Works register, Work page, How it works | Browse every work, the map and network; MPs shown only as aliases; delivery-team content is never public |
+| 🏛️ **Member of Parliament** | Map and list · Needs attention · Updates and alerts · Charts · Team | See flags and model results for their works, follow the team's submissions, act on submissions (request clarification, request a site visit, mark evidence reviewed, escalate to authority), record decisions |
+| 🏗️ **Implementing agency** | Works · Register a work · Submissions · Team and access | Register new works, assign a contractor and field officer, add team members, act on submissions |
+| 👷 **Contractor** | Your works · Team | Log itemised expenses (quantity, unit, rate, invoice), add site photos. **Never sees scores or flags** |
+| 📸 **Field officer** | Your works · Team | Upload site photos with stage, note and optional location; request a Gemini photo description |
+| 🔬 **Research analyst** | Overview · Works · Network · My reviews · Data · Methods | Read every work, import new datasets, switch datasets, record private decisions, presentation mode |
+
+Access is enforced on the server: only **MP and analyst** roles receive check and model results, and team roles see only their own MP's works (out-of-scope requests return 404).
+
+### Workflow: from flag to field
+
+```mermaid
+sequenceDiagram
+    autonumber
+    participant AG as Implementing agency
+    participant C as Contractor
+    participant FO as Field officer
+    participant S as Smart Nigrani API
+    participant MP as MP
+
+    AG->>S: Register work, assign contractor and officer
+    C->>S: Log itemised expense
+    S-->>S: Delivery checks (budget, repeat invoice, rate)
+    FO->>S: Upload site photo (+ optional GPS)
+    S-->>S: JPEG check, SHA-256 re-use check
+    MP->>S: Poll Updates and alerts (every 30 s)
+    MP->>S: Request clarification, site visit, or escalate
+    S-->>C: Request shown under the entry
 ```
 
 ---
 
-## 1. Run it on your laptop
+## 🛠️ Technology stack
 
-You need **Python 3.10 or newer** and **Node 20 or newer**. Use two terminal windows.
+| Layer | Technology |
+|---|---|
+| Frontend | React 19, TypeScript, Vite 8, Leaflet (maps), react-markdown + remark-gfm, oxlint |
+| Backend | Python 3.12, FastAPI, Uvicorn, Pydantic, python-dotenv, httpx |
+| Storage | `data/projects.json` for works (loaded into memory); SQLite for accounts, work logs, evidence photos, reviews and imported datasets |
+| ML | scikit-learn Isolation Forest (offline training, `analysis/`); pure-Python scoring at runtime |
+| Auth | PBKDF2-HMAC-SHA256 password hashing and HMAC-signed tokens (Python standard library) |
+| Optional AI | Google Gemini (`gemini-2.5-flash` by default) for photo descriptions |
+| Optional mirror | `scripts/sync_supabase.py`: one-way copy to Supabase (the app itself always runs on local storage) |
+| Hosting | Frontend on **Vercel**, API on **Render** (`backend/render.yaml`) |
 
-**Terminal 1, the data server:**
+## 🏗️ Architecture
 
-```sh
+```mermaid
+flowchart TB
+    U["Browser<br/>React SPA (hash routes)"] -->|"HTTPS · Bearer token"| API
+
+    subgraph Vercel
+        U
+    end
+
+    subgraph Render["Render (Python web service)"]
+        API["FastAPI app<br/>routers: auth · public · projects · works<br/>delivery · research · stats"]
+        API --> MEM[("projects.json<br/>in memory")]
+        API --> DB[("SQLite<br/>users · work logs · evidence · reviews · datasets")]
+        API --> M["Isolation Forest<br/>model.json"]
+    end
+
+    API -. "optional, with consent" .-> G["Google Gemini API"]
+```
+
+---
+
+## 📁 Project structure
+
+```text
+smart-nigrani-system/
+├── backend/
+│   ├── app/
+│   │   ├── main.py          # FastAPI app, CORS, /api/health, /api/meta
+│   │   ├── config.py        # settings from environment variables
+│   │   ├── pipeline.py      # joins the 5 reports; 7 record checks; model features
+│   │   ├── enrich.py        # map position, sector, 4 checks, review priority
+│   │   ├── anomaly.py       # Isolation Forest scoring (pure Python)
+│   │   ├── delivery.py      # registered works, expense checks, overdue works
+│   │   ├── store.py         # in-memory works + SQLite storage
+│   │   ├── deps.py          # current user and role scoping
+│   │   ├── security.py      # password hashing, signed tokens
+│   │   ├── models.py        # request validation
+│   │   └── routers/         # auth, public, projects, works, delivery, research, stats
+│   ├── analysis/            # train.py, model-card.json, training-scores.json
+│   ├── data/
+│   │   ├── raw/             # the 5 MPLADS reports + cleaned master and payments
+│   │   ├── source/          # offline detector output (the 4 checks)
+│   │   ├── model.json       # trained Isolation Forest
+│   │   ├── district_coords.json
+│   │   └── projects.json    # built by scripts/prepare_data.py, loaded at startup
+│   ├── scripts/             # prepare_data, verify_data, test_workflows, smoke_test, seed_users, sync_supabase
+│   ├── requirements.txt
+│   ├── render.yaml
+│   └── .env.example
+├── frontend/
+│   ├── src/
+│   │   ├── pages/           # Landing, Works, WorkPage, HowItWorks, Login, Mp/Agency/Vendor dashboards, ResearchWorkspace
+│   │   ├── components/      # map, network, charts, updates feed
+│   │   │   └── work/        # per-work tabs: Checks, Peers, Timeline, Similar, ModelTab, Evidence, WorkLog, Reviews…
+│   │   ├── api.ts           # API client (VITE_API_BASE)
+│   │   └── router.ts        # hash-based routing
+│   ├── public/              # icons, manifest, images
+│   ├── package.json
+│   ├── vite.config.ts
+│   ├── vercel.json
+│   └── .env.example
+└── README.md
+```
+
+---
+
+## 🚀 Run it locally
+
+**Prerequisites:** Python 3.10+ and Node.js 20+.
+
+### 1. Backend (API)
+
+```bash
 cd backend
 python3 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
 pip install -r requirements.txt
 uvicorn app.main:app --reload --port 8000
 ```
 
-Check it at <http://localhost:8000/api/health>. The first start creates the database and the sample accounts by itself.
+Check <http://localhost:8000/api/health>. Interactive API docs: <http://localhost:8000/docs>.
+On first start the server creates the SQLite database and the sample accounts.
 
-**Terminal 2, the website:**
+### 2. Frontend (website)
 
-```sh
+```bash
 cd frontend
 npm install
 npm run dev
 ```
 
-Open <http://localhost:5173>.
+Open <http://localhost:5173>. The frontend calls `http://127.0.0.1:8000` by default.
 
-### Sign in
+### 3. Sign in with a sample account
 
-On the sign-in screen, pick a role tab and click any sample account. No password is typed or shown. To type one instead, open "Sign in with a username"; every sample account uses the password `nigrani`.
+On the sign-in page, pick a role tab and click a sample account (one click, no password). To type one instead, every sample account uses the password set by `DEMO_PASSWORD` (default `nigrani`).
 
-| Role | Sample account | What they do |
-|---|---|---|
-| Member of Parliament | `sanjay.jadhav` | Sees their works on a map and ranked list, why each was flagged, peers, timeline, the model's view; follows the team's updates; records decisions and asks for clarification or site visits |
-| Contractor | `contractor.sanjay.jadhav` | Records work done and materials bought (quantity, unit, rate, invoice); adds site photographs. Is never sent a score or flag |
-| Field officer | `officer.sanjay.jadhav` | Submits site photographs with a note, stage and optional location; can ask Gemini to describe a photo (when configured) |
-| Implementing agency | `agency.sanjay.jadhav` | Registers new works and assigns a contractor and officer; adds contractors and officers to the team; acts on submissions |
-| Research analyst | `analyst1` | Reads every work; imports newer report exports as separate datasets; switches datasets; records private decisions; presentation mode |
-
-Every member has a team of four (member, contractor, field officer, agency) who see the same list of works: 47 teams, plus 2 analysts, 190 accounts in all.
-
-### A two-minute walkthrough
-
-1. Front page: the network of members (shown as MP 01 to MP 47) and their most flagged works. Click a work, then **Explore work**.
-2. Try the tabs: **Why flagged**, **Peer comparison** (animated), **Timeline**, **Similar works**, **Model opinion**, **Source records**. **Export case file** downloads a Markdown case file.
-3. Sign in as **Contractor for Sanjay Haribhau Jadhav**, open *Construction of Sabha mandap at Bor Ranjani*, **Work log → Add an entry**, add a material line, save.
-4. Sign in as **Sanjay Haribhau Jadhav** (the member). **Updates and alerts** shows the entry. Open it and use **Act on this → Request clarification**.
-5. Sign back in as the contractor: the request is shown under the entry.
-
----
-
-## 2. What it does
-
-### Three separate views of each work, never added together
-
-| View | What it is | Where it comes from |
-|---|---|---|
-| **Review priority** (0 to 100, Critical / High / Medium / Routine) | Four checks: cost against works with similar descriptions, possible repeat of another work, time taken, money paid against progress. Weighted 30/25/25/20, plus 5 points for each check over its line (up to three). | The team's detector pipeline (`backend/data/source/`), unchanged. Runs on sanctioned works; everything else is labelled **Not checked**, not "Routine". |
-| **Record checks** (seven rules) | Amount against its comparison group, similar description, more than 45 days to sanction, over a year without a completion record, sanction more than 10% above recommendation, successful payments above sanction, dates in the wrong order. | `backend/app/pipeline.py`, on every work, including imported datasets. |
-| **Model percentile** | How statistically unusual a sanctioned work looks, from an Isolation Forest trained on 2,437 works. | `backend/data/model.json`, scored by `backend/app/anomaly.py`. |
-
-None of these is a probability of fraud. The data contains no confirmed cases, so no accuracy figure exists and none is claimed.
-
-### Public pages (no sign-in)
-
-Splash and animated front page; member-to-work network; map of every work (district-level, labelled as approximate); the public register with search, filters, **Apply**, ten per page; every work's full investigation view; "How it works" with a method-notes search (plain word matching, not an AI assistant). Members appear only as aliases, constituencies and payee names are never shown, and nothing written by a delivery team is public.
-
-### Delivery
-
-Agency registers a work and assigns people → the contractor records itemised claims (the server does the arithmetic and notes: over the approved amount, repeated invoice and material, materials billed at Planning, a rate far above earlier claims for the same material and unit) → the field officer adds photographs (shrunk in the browser, JPEG checked on the server, exact re-use detected, location optional) → the member sees it all in **Updates and alerts** (checks again every 30 seconds; nothing is emailed or pushed) → the member or agency acts on each submission. Registered works past their completion target without 100% reported progress are listed as overdue.
-
-### Research workspace
-
-Dataset overview with the join's own totals; every work filterable by review label, record check, district and member, sortable by any of the three views; network; personal review decisions; dataset history and switching; import of five new CSV exports (validated by columns, analysed by the same join, record checks and model, kept as a separate dataset, never overwriting the original); presentation mode that shows aliases on screen only.
-
-### Everywhere
-
-Warm cream and burnt-orange design with a dark mode (toggle in the header, remembered). The screen, filters, selected work and tab live in the address, so refresh and Back keep your place. Forms keep their drafts through errors, page changes and refreshes, and each submission carries an id so pressing Save twice saves once.
-
----
-
-## 3. The data
-
-`backend/data/raw/` holds the supplied files: the five MPLADS reports (`Works Recommended.csv`, `Works Sanctioned.csv`, `Works Completed.csv`, `Expenditure on Completed and On-going Works as on Date.csv`, `Allocated Limit for Honble MPs.csv`) and the cleaned `NetraDrift_master_projects.csv` and `NetraDrift_payments.csv`.
-
-`python scripts/prepare_data.py` joins the reports (9,929 rows → 4,798 works: 2,437 sanctioned and 2,361 recommendations without a work id), runs the record checks, joins the detector scores, scores the model, and writes `data/projects.json`. It also compares every sanctioned work with the cleaned master and prints any disagreement (currently 3 payments whose ids contain stray whitespace; the report join attaches them, the cleaned file did not).
-
-Every work keeps the report rows it came from, and every payment keeps its row number.
-
----
-
-## 4. Checks you can run
-
-From `backend/` with the virtual environment active:
-
-| Command | What it proves | Result at hand-over |
-|---|---|---|
-| `python scripts/verify_data.py` | The join reproduces all recorded totals; ids unique; provenance kept; model inputs in training order; **model score and percentile identical to training for all 2,437 works**; priority 4 Critical / 74 High / 186 Medium; `projects.json` up to date | 30 / 30 pass |
-| `python scripts/test_workflows.py` | Every workflow, in-process on a throwaway database: public anonymity, roles and scoping, itemised expenses and their checks, retries, evidence and reuse, private photos, Gemini unavailable state, reviews, team, registration, updates, research import | 75 / 75 pass |
-| `python scripts/smoke_test.py` | The running API end to end (start the server first) | 31 / 31 pass |
-
-From `frontend/`: `npm run build` (type-check and production build) and `npm run lint`.
-
-To retrain the model (this replaces `data/model.json`): `python scripts/prepare_data.py --training-input`, then `pip install -r analysis/requirements.txt` and `python analysis/train.py`. With the pinned scikit-learn 1.8.0 and numpy 2.3.5 this reproduces the shipped model's trees exactly.
-
----
-
-## 5. Settings
-
-All optional. Copy `backend/.env.example` to `backend/.env`.
-
-| Variable | Purpose |
+| Role | Example username |
 |---|---|
-| `SECRET_KEY` | Signs sign-in tokens. **Change it before putting the site anywhere public.** |
-| `DEMO_ACCOUNTS=off` | Removes the one-click sample sign-ins. |
-| `DEMO_PASSWORD` | Password of the sample accounts (default `nigrani`). |
-| `CORS_ORIGINS` | Extra website addresses allowed to call the API. |
-| `GEMINI_API_KEY` | Turns on Gemini photo descriptions. **Not set in this hand-over, so the feature says it is not connected.** Server-side only; never put it in the frontend. |
-| `GEMINI_MODEL` | Default `gemini-2.5-flash`. |
-| `GEMINI_DAILY_LIMIT` | Descriptions per account per day, default 20. |
-| `SNS_DB` | Path of the SQLite file, default `backend/data/sns.sqlite3`. |
+| MP | `sanjay.jadhav` |
+| Contractor | `contractor.sanjay.jadhav` |
+| Field officer | `officer.sanjay.jadhav` |
+| Implementing agency | `agency.sanjay.jadhav` |
+| Research analyst | `analyst1` |
 
-Frontend: `VITE_API_BASE` (default `http://127.0.0.1:8000`) is read when the site is built.
+47 MP teams of four plus 2 analysts: **190 sample accounts**.
+
+### Rebuild the data (optional)
+
+```bash
+cd backend
+python scripts/prepare_data.py    # data/raw + data/source -> data/projects.json
+```
 
 ---
 
-## 6. Honest limits
+## 🔐 Environment variables
 
-- The reports have no coordinates: map positions are district centres, and the map says so.
-- The reports have no quantities, specifications or progress figures: amount comparisons are totals, and progress is only what the delivery team reports.
-- A missing completion record does not prove a work is unfinished.
-- Payments have no transaction ids, so a repeated payment cannot be told from a second instalment.
-- Photographs and device locations are submitted by people and can be wrong; a person reviews them.
-- Gemini is wired in but has **not** been tested against the real service, because no key was available.
-- The four checks cannot be run on imported datasets (they come from the team's offline pipeline with a sentence-transformer model); imports show "Not checked".
-- Updates refresh by polling every 30 seconds. There is no email, SMS or push.
-- Contractor, officer and agency accounts are sample accounts; the roles are enforced by the server, but no government identity check exists.
-- There is no RAG or AI assistant. The method-notes search matches words.
-- Camera, GPS and phone layout were checked in a desktop browser (including a 390-pixel-wide frame), not on a real phone.
+All are optional; the app runs with none set. Copy the example files and **never commit a real `.env`**.
+
+```bash
+cp backend/.env.example backend/.env
+cp frontend/.env.example frontend/.env    # only if the API is not at 127.0.0.1:8000
+```
+
+**Backend (`backend/.env`)**
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `SECRET_KEY` | Signs sign-in tokens. **Must be changed on any public server.** | development value |
+| `TOKEN_TTL_SECONDS` | Token lifetime | `43200` (12 h) |
+| `DEMO_ACCOUNTS` | `off` removes the one-click sample sign-in | `on` |
+| `DEMO_PASSWORD` | Password of the sample accounts | `nigrani` |
+| `CORS_ORIGINS` | Extra allowed frontend addresses (comma-separated) | localhost:5173 / 4173 |
+| `CORS_ORIGIN_REGEX` | Allowed address pattern | `*.vercel.app`, `*.netlify.app`, `*.onrender.com`, `*.github.io` |
+| `SNS_DB` | SQLite file path | `backend/data/sns.sqlite3` |
+| `GEMINI_API_KEY` | Enables Gemini photo descriptions (server-side only) | not set |
+| `GEMINI_MODEL` | Gemini model | `gemini-2.5-flash` |
+| `GEMINI_DAILY_LIMIT` | Descriptions per account per day | `20` |
+| `DATA_BACKEND`, `SUPABASE_URL`, `SUPABASE_KEY` | Only for the optional `sync_supabase.py` mirror | `local` |
+
+**Frontend (`frontend/.env` or Vercel project settings)**
+
+| Variable | Purpose | Default |
+|---|---|---|
+| `VITE_API_BASE` | Backend URL, read **at build time** (rebuild after changing) | `http://127.0.0.1:8000` |
+
+---
+
+## ✅ Checks
+
+Run from `backend/` with the virtual environment active:
+
+| Command | What it verifies |
+|---|---|
+| `python scripts/verify_data.py` | Report join reproduces the recorded totals; model score and percentile match training for all 2,437 works; priority counts; `projects.json` up to date (**30 checks**) |
+| `python scripts/test_workflows.py` | Every workflow on a throwaway database: public anonymity, role scoping, expense checks, evidence, reviews, registration, imports (**75 checks**) |
+| `python scripts/smoke_test.py` | The running API end to end (start the server first) |
+
+Frontend: `npm run build` (type-check + production build) and `npm run lint`.
+
+---
+
+## ☁️ Deployment
+
+| Part | Platform | Configuration |
+|---|---|---|
+| Frontend | Vercel | `frontend/vercel.json`: `npm run build`, output `dist/`, all routes to `index.html`. Set `VITE_API_BASE` to the Render URL. |
+| Backend | Render | `backend/render.yaml`: `pip install -r requirements.txt`, then `uvicorn app.main:app --host 0.0.0.0 --port $PORT`, health check `/api/health`. Set `SECRET_KEY` and, optionally, `GEMINI_API_KEY`. |
+
+`backend/data/projects.json` must be committed (or generated during the build with `python scripts/prepare_data.py`), because the API loads it at startup.
+
+---
+
+## 🖼️ Screens
+
+| Screen | Link |
+|---|---|
+| Landing page with MP network and top flagged works | [Open](https://smart-nigrani-system.vercel.app/#/) |
+| Public register of works with filters | [Open](https://smart-nigrani-system.vercel.app/#/works) |
+| How it works (method, checks, model, limits) | [Open](https://smart-nigrani-system.vercel.app/#/how-it-works) |
+| Sign in with a sample account | [Open](https://smart-nigrani-system.vercel.app/#/signin) |
+
+## Screenshots
+
+![Landing Page](docs/screenshots/landing.png)
+
+![Work Investigation View](docs/screenshots/work-page.png)
+
+![MP Dashboard](docs/screenshots/mp-dashboard.png)
+
+---
+
+## 🎬 Demo video
+
+▶️ **[Watch the demo on YouTube](https://www.youtube.com/watch?v=vg-pKbTyaAs)**
+
+---
+
+## ⚠️ Limitations
+
+- **No fraud labels.** No confirmed cases exist in the data, so there is no accuracy figure. Flags are prompts for human review.
+- **District-level map.** The reports have no coordinates; map positions are district centres and are labelled as approximate.
+- **Totals only.** The reports have no quantities, specifications or physical progress; cost comparisons use total amounts.
+- **The four checks need the offline pipeline.** Imported datasets get the record checks and the model, but show "Not checked" for the four checks.
+- **Payments have no transaction IDs**, so a repeated payment cannot be told apart from a second instalment.
+- **Updates use polling** (every 30 seconds). No email, SMS or push notifications.
+- **Sample accounts only.** Roles are enforced by the server, but there is no government identity verification.
+- **Storage is a single SQLite file.** On a host without a persistent disk, logs and photos added through the site may be lost on redeploy or restart.
+- **Retraining:** `analysis/train.py` reads `data/analyzed.json`, which is not committed and not written by the current scripts.
+
+## 🔭 Future scope
+
+- Bring the offline detector pipeline (semantic cost and duplicate detection) into the repository so imported datasets can get all four checks.
+- Collect reviewer decisions as labels, so the model can be evaluated and improved over time.
+- Extend beyond Maharashtra to other states' MPLADS data.
+- Integrate official identity sign-in for government roles.
+- Real-time notifications (email/SMS/push) instead of polling.
+- Managed database and object storage for photos.
+
+---
+
+## 👨‍💻 Team SNS
+
+| | |
+|---|---|
+| **Team name** | SNS |
+| **Team ID** | 159098 |
+| **Problem Statement** | SIH26102 |
+
+| Member | Role |
+|---|---|
+| Rehan Rahim | Team Leader |
+| Sandesh Dnyanoba Shirse | Member |
+| Rahul Dhananjay Tripathi | Member |
+| Kadambari Shriniwas Mane | Member |
+| Pruthvirajsingh Santoshsingh Jamadar | Member |
+| Shravani Dipak Tupe | Member |
+
+## 📄 License
+
+No license has been chosen for this repository yet. Until one is added, all rights are reserved by the authors.
+
+The landing-page photograph (`frontend/public/images/maharashtra-road-*.jpg`) is by **McKay Savage**, via Wikimedia Commons, licensed [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/). See `frontend/public/images/CREDITS.txt`.
+
+MPLADS data is from the published MPLADS reports for Maharashtra.
+
+---
+
+<div align="center">
+
+**[Live Demo](https://smart-nigrani-system.vercel.app/)** · **[GitHub](https://github.com/rehanrahim7/smart-nigrani-system)** · **[Demo Video](https://www.youtube.com/watch?v=vg-pKbTyaAs)**
+
+Built for **Smart India Hackathon 2026** by Team **SNS**
+
+</div>
