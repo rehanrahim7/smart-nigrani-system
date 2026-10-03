@@ -255,7 +255,7 @@ sequenceDiagram
 | Storage | `data/projects.json` for works (loaded into memory); SQLite for accounts, work logs, evidence photos, reviews and imported datasets |
 | ML | scikit-learn Isolation Forest (offline training, `analysis/`); pure-Python scoring at runtime |
 | Auth | PBKDF2-HMAC-SHA256 password hashing and HMAC-signed tokens (Python standard library) |
-| Optional AI | Google Gemini (`gemini-2.5-flash` by default) for photo descriptions |
+| Optional AI | Google Gemini (`gemini-3.8-flash` by default) for photo descriptions |
 | Optional mirror | `scripts/sync_supabase.py`: one-way copy to Supabase (the app itself always runs on local storage) |
 | Hosting | Frontend on **Vercel**, API on **Render** (`backend/render.yaml`) |
 
@@ -397,7 +397,7 @@ cp frontend/.env.example frontend/.env    # only if the API is not at 127.0.0.1:
 | `CORS_ORIGIN_REGEX` | Allowed address pattern | `*.vercel.app`, `*.netlify.app`, `*.onrender.com`, `*.github.io` |
 | `SNS_DB` | SQLite file path | `backend/data/sns.sqlite3` |
 | `GEMINI_API_KEY` | Enables Gemini photo descriptions (server-side only) | not set |
-| `GEMINI_MODEL` | Gemini model | `gemini-2.5-flash` |
+| `GEMINI_MODEL` | Gemini model | `gemini-3.8-flash` |
 | `GEMINI_DAILY_LIMIT` | Descriptions per account per day | `20` |
 | `DATA_BACKEND`, `SUPABASE_URL`, `SUPABASE_KEY` | Only for the optional `sync_supabase.py` mirror | `local` |
 
