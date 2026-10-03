@@ -445,11 +445,23 @@ Frontend: `npm run build` (type-check + production build) and `npm run lint`.
 
 ## Screenshots
 
-![Landing Page](docs/screenshots/landing.png)
+### Landing Page
 
-![Work Investigation View](docs/screenshots/work-page.png)
+| Light Mode | Dark Mode |
+|---|---|
+| ![Landing Page Light](docs/screenshots/landing-light.png) | ![Landing Page Dark](docs/screenshots/landing-dark.png) |
 
-![MP Dashboard](docs/screenshots/mp-dashboard.png)
+### Work Investigation View
+
+| Light Mode | Dark Mode |
+|---|---|
+| ![Work Page Light](docs/screenshots/work-page-light.png) | ![Work Page Dark](docs/screenshots/work-page-dark.png) |
+
+### MP Dashboard
+
+| Light Mode | Dark Mode |
+|---|---|
+| ![MP Dashboard Light](docs/screenshots/mp-dashboard-light.png) | ![MP Dashboard Dark](docs/screenshots/mp-dashboard-dark.png) |
 
 ---
 
